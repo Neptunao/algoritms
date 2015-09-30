@@ -1,5 +1,6 @@
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.StdIn;
 
 public class Percolation {
 
@@ -9,7 +10,7 @@ public class Percolation {
     private int size;
 
     public Percolation(int N) {               // create N-by-N grid, with all sites blocked
-        if (N < 0) {
+        if (N <= 0) {
             throw new IllegalArgumentException();
         }
         size = N;
@@ -19,8 +20,8 @@ public class Percolation {
     }
 
     private int mapIndex(int i, int j) {
-        if (i < 1 || j < 1) {
-            throw new IllegalArgumentException();
+        if (i < 1 || j < 1 || i > size || j > size) {
+            throw new IndexOutOfBoundsException();
         }
 
         if (i == 1) {
@@ -41,13 +42,13 @@ public class Percolation {
 
     public void open(int i, int j) {       // open site (row i, column j) if it is not open already
         if (i < 1 || j < 1 || i > size || j > size) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
 
         if (opened[i - 1][j - 1]) {
             return;
         }
-        
+
         opened[i - 1][j - 1] = true;
 
         if (i < size && opened[i][j - 1]) {
@@ -66,24 +67,34 @@ public class Percolation {
     }
 
     public boolean isOpen(int i, int j) {     // is site (row i, column j) open?
-        if (i < 1 || j < 1) {
-            throw new IllegalArgumentException();
+        if (i < 1 || j < 1 || i > size || j > size) {
+            throw new IndexOutOfBoundsException();
         }
         return opened[i - 1][j - 1];
     }
 
     public boolean isFull(int i, int j) {  // is site (row i, column j) full?
-        if (i < 1 || j < 1) {
-            throw new IllegalArgumentException();
+        if (i < 1 || j < 1 || i > size || j > size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (!isOpen(i, j)) {
+            return false;
         }
 
         int index = mapIndex(i, j);
-        return uf.connected(arrLength - 1, index);
+        return uf.connected(0, index);
     }
 
     public boolean percolates() {            // does the system percolate?
-        if(arrLength == 1)
-            return isOpen(1,1);
+        if (arrLength == 1) {
+            return isOpen(1, 1);
+        }
+        /*for (int i = 1; i <= size; i++) {
+         for (int j = 1; j <= size; j++) {
+         StdOut.println("IsOpen " + i + " " + j + " = " + isOpen(i, j));
+         }
+         }*/
         return uf.connected(0, arrLength - 1);
     }
 
@@ -97,10 +108,10 @@ public class Percolation {
             percolation.open(p, q);
         }
         /*for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= N; j++) {
-                StdOut.println("IsOpen " + i + " " + j + " = " + percolation.isOpen(i, j));
-            }
-        }
-        StdOut.println("Percolates ??? " + percolation.percolates());*/
+         for (int j = 1; j <= N; j++) {
+         StdOut.println("IsOpen " + i + " " + j + " = " + percolation.isOpen(i, j));
+         }
+         }
+         StdOut.println("Percolates ??? " + percolation.percolates());*/
     }
 }

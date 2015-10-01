@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Algorithms/JavaApplication1/src/App.java</file>
+            <file>file:/E:/Algorithms/Percolation/src/PercolationStats.java</file>
+            <file>jar:file:/E:/Algorithms/Percolation/lib/stdlib.jar!/StdRandom.java</file>
+            <file>file:/E:/Algorithms/Percolation/src/Percolation.java</file>
         </group>
     </open-files>
 </project-private>

@@ -29,12 +29,14 @@ public class Deque<Item> implements Iterable<Item> {
             throw new NullPointerException();
         }
         Container old = first;
+        first = new Container(item);
         if (size == 0) {
             last = first;
         }
-        first = new Container(item);
         first.next = old;
-        old.prev = first;
+        if (old != null) {
+            old.prev = first;
+        }
         size++;
     }
 
@@ -44,12 +46,14 @@ public class Deque<Item> implements Iterable<Item> {
             throw new NullPointerException();
         }
         Container old = last;
+        last = new Container(item);
         if (size == 0) {
             first = last;
         }
-        last = new Container(item);
         last.prev = old;
-        old.next = last;
+        if (old != null) {
+            old.next = last;
+        }
         size++;
     }
 
@@ -64,6 +68,8 @@ public class Deque<Item> implements Iterable<Item> {
         size--;
         if (size == 0) {
             last = null;
+        } else {
+            first.prev = null;
         }
         return old.item;
     }
@@ -79,6 +85,8 @@ public class Deque<Item> implements Iterable<Item> {
         size--;
         if (size == 0) {
             first = null;
+        } else {
+            last.next = null;
         }
         return old.item;
     }
@@ -95,9 +103,9 @@ public class Deque<Item> implements Iterable<Item> {
 
     private class Container {
 
-        public Container prev;
-        public Container next;
-        public final Item item;
+        private Container prev;
+        private Container next;
+        private final Item item;
 
         public Container(Item item) {
             this.item = item;

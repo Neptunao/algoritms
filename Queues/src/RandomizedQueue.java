@@ -11,12 +11,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public RandomizedQueue() // construct an empty randomized queue
     {
         size = 0;
-        array = (Item[]) new Object[100];
+        array = (Item[]) new Object[5];
     }
 
     private void resize(int n) {
         Item[] arr = (Item[]) new Object[n];
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < size; i++) {
             arr[i] = array[i];
         }
         array = arr;
@@ -61,6 +61,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int i = StdRandom.uniform(size);
         swap(i, size - 1);
         Item res = array[size - 1];
+        array[size - 1] = null;
         size--;
         return res;
     }
@@ -97,9 +98,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             this.size = size;
             indexes = new int[size];
             for (int i = 0; i < size; i++) {
-                int r = i + StdRandom.uniform(size - i);     // between i and N-1
-                indexes[i] = r;
+                indexes[i] = i;
             }
+            StdRandom.shuffle(indexes);
         }
 
         @Override
